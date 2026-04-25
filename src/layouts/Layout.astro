@@ -1,0 +1,121 @@
+---
+/**
+ * Layout.astro — Shell Global
+ * Mario Quirino Landing Page
+ *
+ * Responsabilidades:
+ * - Estrutura HTML semântica com meta SEO
+ * - Import do CSS global (design system)
+ * - Preconnect de fontes Google
+ * - Inicialização do Lenis (física de scroll)
+ * - Registro do GSAP + ScrollTrigger
+ */
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title       = 'Mario Quirino — Especialista Nacional em PNL & Diretor Executivo BNI',
+  description = 'Mario Quirino é especialista nacional em PNL e Diretor Executivo BNI. Transforme sua liderança, comunicação e resultados com metodologias comprovadas.',
+  ogImage     = '/og-image.jpg',
+} = Astro.props;
+
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://marioquirino.com.br/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:url"         content="https://marioquirino.com.br/" />
+    <meta property="og:locale"      content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage} />
+
+    <!-- Preconnect — Fontes (não bloqueiam o render) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Favicon placeholder -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+
+  <body>
+    <!-- Header fixo — primeiro elemento, por cima de tudo via z-50 -->
+    <Header />
+
+    <!-- Conteúdo das páginas/componentes injetado aqui -->
+    <slot />
+
+    <!--
+      ┌─────────────────────────────────────────────────────┐
+      │  FÍSICA DE SCROLL — Lenis (Studio Freight)          │
+      │  + GSAP ScrollTrigger Integration                   │
+      │                                                     │
+      │  Regra: Este é o ÚNICO script client-side global.   │
+      │  Toda outra lógica JS fica nos componentes.         │
+      └─────────────────────────────────────────────────────┘
+    -->
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      // --- 1. REGISTRAR PLUGINS GSAP ---
+      gsap.registerPlugin(ScrollTrigger);
+
+      // --- 2. INICIALIZAR LENIS ---
+      // Configuração "Luxo Pesado" — inércia mais longa e amanteigada
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.8,    // Inércia mais pesada — sensação luxuosa
+        touchMultiplier: 1.5,
+        infinite: false,
+      });
+
+      // --- 3. BRIDGE: Lenis → GSAP ScrollTrigger ---
+      // O Lenis alimenta o ScrollTrigger com a posição real do scroll suavizado.
+      // Sem isso, o ScrollTrigger usaria o scroll nativo e as animações "saltariam".
+      lenis.on('scroll', ScrollTrigger.update);
+
+      // --- 4. LOOP DE ANIMAÇÃO (RAF) ---
+      // O ticker do GSAP gerencia o requestAnimationFrame — evita conflitos de loop.
+      gsap.ticker.add((time: number) => {
+        lenis.raf(time * 1000); // GSAP ticker fornece tempo em segundos; Lenis espera ms
+      });
+
+      // Desabilita o lag suavizador padrão do GSAP ticker (Lenis já gerencia isso)
+      gsap.ticker.lagSmoothing(0);
+
+      // --- 5. EXPOR LENIS GLOBALMENTE (para componentes acessarem) ---
+      // Útil para parar/reiniciar o scroll em modais, menus, etc.
+      (window as any).__lenis = lenis;
+    </script>
+  </body>
+</html>

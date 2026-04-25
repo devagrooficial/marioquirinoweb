@@ -1,0 +1,255 @@
+/* ============================================================
+   GLOBAL CSS — Mario Quirino Landing Page
+   "The Cinematic Canvas" Design System
+   Fonte da Verdade: CONTEXTO_DO_PROJETO.md
+   ============================================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- GOOGLE FONTS IMPORT ------------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@200;300;400;500&display=swap');
+
+/* --- CSS CUSTOM PROPERTIES (TOKENS) ------------------------ */
+:root {
+  --color-void:       #000000;
+  --color-depth-1:    #0A0A0A;
+  --color-depth-2:    #111111;
+  --color-depth-3:    #1A1A1A;
+  --color-surface:    #FFFFFF;
+  --color-muted:      #8A8A8A;
+  --color-accent:     #C9A96E;
+  --color-accent-dim: rgba(201, 169, 110, 0.12);
+
+  --font-serif: 'Playfair Display', 'DM Serif Display', Georgia, serif;
+  --font-sans:  'Inter', system-ui, sans-serif;
+
+  --ease-out-expo:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:     cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* --- RESET CIRÚRGICO --------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- BODY — THE VOID --------------------------------------- */
+html {
+  scroll-behavior: auto; /* Lenis gerencia o scroll, não o browser */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  /* Lenis adiciona overflow-y via JS — não definir aqui */
+}
+
+/* --- OCULTAR SCROLLBAR NATIVA (imersão total) -------------- */
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  display: none;
+}
+/* Firefox */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* --- SELEÇÃO DE TEXTO -------------------------------------- */
+::selection {
+  background-color: var(--color-accent);
+  color: #000000;
+}
+
+/* --- TIPOGRAFIA ESCULTURAL BASE ---------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+/* --- LINKS ------------------------------------------------- */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- IMAGENS ----------------------------------------------- */
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+/* --- CLASSES UTILITÁRIAS DO PROJETO ------------------------ */
+@layer components {
+
+  /* Eyebrow Label — Label pequeno em caps acima dos títulos */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .eyebrow--accent {
+    color: var(--color-accent);
+  }
+
+  /* Ghost Button — CTA elegante com preenchimento suave */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    border: 1px solid rgba(201, 169, 110, 0.5);
+    color: var(--color-accent);
+    padding: 1rem 2.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 400;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition:
+      color 0.5s ease,
+      border-color 0.5s ease,
+      letter-spacing 0.4s ease;
+  }
+
+  .btn-ghost::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    z-index: 0;
+  }
+
+  .btn-ghost span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-ghost:hover {
+    color: #000000;
+    border-color: var(--color-accent);
+    letter-spacing: 0.25em;
+  }
+
+  .btn-ghost:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Glassmorphism Dark Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* MQ Access Badge */
+  .mq-access-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(201, 169, 110, 0.2);
+    border-radius: 100px;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(201, 169, 110, 0.7);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    margin-top: 0.75rem;
+  }
+
+  .mq-access-badge strong {
+    font-weight: 500;
+    color: var(--color-accent);
+  }
+
+  /* Linha decorativa gold */
+  .gold-rule {
+    width: 3rem;
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.6;
+  }
+
+  /* Spot Indicator — escassez de vagas */
+  .spot-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  .spot-indicator::before {
+    content: '●';
+    font-size: 0.5rem;
+    animation: pulse-spot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-spot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+}
+
+/* --- CLASSES DE ANIMAÇÃO (estado inicial para GSAP) -------- */
+/* O GSAP gerencia a transição — esses são os estados de saída */
+.will-animate {
+  visibility: hidden; /* GSAP seta para visible no início */
+}
+
+/* --- NOISE TEXTURE OVERLAY --------------------------------- */
+/* Aplique em elementos decorativos via mix-blend-mode */
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* --- RESPONSIVIDADE BASE ----------------------------------- */
+/* Mobile-first. Breakpoints: 375 / 768 / 1280 / 1440 / 1920 */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    font-size: 18px;
+  }
+}

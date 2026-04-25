@@ -1,0 +1,374 @@
+---
+/**
+ * AppMonolith.astro — The Digital Monolith
+ * Mario Quirino Landing Page
+ *
+ * Design: Smartphone escuro flutuando no void.
+ * Zero superfície. Zero mesa. Zero "app store screenshot".
+ * Três glass cards orbitam o mockup como satélites de autoridade.
+ */
+
+interface Feature {
+  id: string;
+  icon: string;       // SVG path string
+  label: string;
+  description: string;
+  position: string;   // classes de posicionamento absoluto
+  animFrom: { x: number; y: number }; // direção de entrada da animação
+}
+
+const features: Feature[] = [
+  {
+    id: 'feature-1',
+    icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z',
+    label: 'Conteúdo Exclusivo',
+    description: 'Treinamentos em PNL e liderança direto no seu bolso',
+    position: 'left-[2%] xl:left-[4%] top-[18%]',
+    animFrom: { x: -60, y: 0 },
+  },
+  {
+    id: 'feature-2',
+    // Ícone de gráfico de barras (analytics / dados)
+    icon: 'M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z',
+    label: 'Análises Personalizadas',
+    description: 'Faça análises e centralize todas informações',
+    position: 'right-[2%] xl:right-[4%] top-[38%]',
+    animFrom: { x: 60, y: 0 },
+  },
+  {
+    id: 'feature-3',
+    icon: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z',
+    label: 'Agenda & Eventos',
+    description: 'Palestras, mentorias e eventos com acesso prioritário',
+    position: 'left-[2%] xl:left-[4%] bottom-[20%]',
+    animFrom: { x: -60, y: 20 },
+  },
+];
+---
+
+<section
+  id="app-section"
+  aria-label="Aplicativo exclusivo de Mario Quirino"
+  class="relative w-full overflow-hidden"
+  style="min-height: 120vh; background-color: #000000;"
+>
+
+  <!-- Noise overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Spotlight de fundo — halo do monolito -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(26,26,26,0.8) 0%, #000000 75%);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Glow gold subliminar ao redor do mockup -->
+  <div
+    class="absolute pointer-events-none"
+    style="
+      width: 600px; height: 600px;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, rgba(201,169,110,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    "
+    aria-hidden="true"
+  ></div>
+
+  <!-- Container principal com z-index -->
+  <div class="relative z-10 w-full h-full flex flex-col items-center justify-start pt-24 pb-32 md:pt-32">
+
+    <!-- Eyebrow -->
+    <div id="app-eyebrow" class="eyebrow eyebrow--accent text-center mb-6 opacity-0">
+      Tecnologia Proprietária · Web App
+    </div>
+
+    <!-- Título da seção -->
+    <div class="overflow-hidden mb-4">
+      <h2
+        id="app-title"
+        class="font-serif font-bold text-surface text-center leading-none tracking-tighter"
+        style="font-size: clamp(2.5rem, 6vw, 7rem); opacity: 0; transform: translateY(60px);"
+      >
+        O Ecossistema
+        <span class="text-accent">Digital</span>
+      </h2>
+    </div>
+
+    <p
+      id="app-subtitle"
+      class="font-sans font-extralight text-muted text-center max-w-md text-base md:text-lg tracking-wide mb-20 px-8 opacity-0"
+      style="transform: translateY(20px);"
+    >
+      Toda a metodologia de Mario Quirino<br />condensada em uma experiência única.
+    </p>
+
+    <!-- ── ARENA DO MONOLITO ─────────────────────────────── -->
+    <!-- Área relativa onde o celular e os cards coexistem   -->
+    <div
+      class="relative w-full max-w-4xl xl:max-w-5xl mx-auto"
+      style="height: 700px;"
+    >
+
+      <!-- ── MOCKUP DO SMARTPHONE ──────────────────────── -->
+      <div
+        id="app-mockup"
+        class="absolute left-1/2 top-1/2"
+        style="
+          transform: translate(-50%, -50%);
+          width: 280px;
+          perspective: 1200px;
+          transform-style: preserve-3d;
+        "
+        aria-label="Mockup do aplicativo Mario Quirino"
+      >
+        <!-- Frame do celular -->
+        <div
+          class="relative rounded-[3rem] overflow-hidden"
+          style="
+            width: 280px;
+            height: 580px;
+            background: linear-gradient(160deg, #141414 0%, #0A0A0A 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow:
+              0 0 0 1px rgba(0,0,0,0.5),
+              0 40px 120px rgba(0,0,0,0.9),
+              0 0 80px rgba(201,169,110,0.06),
+              inset 0 1px 0 rgba(255,255,255,0.06);
+          "
+        >
+          <!-- Notch / Dynamic Island simulado -->
+          <div
+            class="absolute top-4 left-1/2 -translate-x-1/2 z-10"
+            style="width: 100px; height: 30px; background: #000; border-radius: 20px;"
+            aria-hidden="true"
+          ></div>
+
+          <!-- Tela do app — conteúdo estilizado -->
+          <div class="absolute inset-0 flex flex-col" style="padding-top: 56px;">
+
+            <!-- Status bar simulada -->
+            <div class="flex justify-between px-6 py-2 opacity-40" aria-hidden="true">
+              <span class="font-sans text-white" style="font-size: 0.6rem;">9:41</span>
+              <span class="font-sans text-white" style="font-size: 0.6rem;">●●●</span>
+            </div>
+
+            <!-- Header do app -->
+            <div class="px-6 pt-4 pb-6">
+              <p class="eyebrow eyebrow--accent mb-1">Bem-vindo,</p>
+              <p class="font-serif text-surface font-bold" style="font-size: 1.4rem; line-height: 1.1;">
+                Sua Rede<br />te espera.
+              </p>
+            </div>
+
+            <!-- Card de destaque no app -->
+            <div
+              class="mx-4 rounded-2xl p-4 mb-4"
+              style="background: linear-gradient(135deg, rgba(201,169,110,0.15) 0%, rgba(201,169,110,0.05) 100%); border: 1px solid rgba(201,169,110,0.2);"
+            >
+              <p class="eyebrow eyebrow--accent mb-2">Próximo Evento</p>
+              <p class="font-sans text-surface font-light text-sm">Palestra — Liderança & PNL</p>
+              <p class="eyebrow text-muted mt-1">15 Jun · São Paulo</p>
+            </div>
+
+            <!-- Lista de itens simulada -->
+            <div class="px-4 space-y-3">
+              {['Módulo 1 · Rapport Avançado', 'Módulo 2 · Ancoragem', 'Módulo 3 · Metamodelo'].map((item) => (
+                <div
+                  class="flex items-center gap-3 p-3 rounded-xl"
+                  style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);"
+                >
+                  <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: #C9A96E;"></div>
+                  <span class="font-sans text-muted font-light" style="font-size: 0.72rem;">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <!-- Bottom bar simulada -->
+            <div
+              class="absolute bottom-0 left-0 right-0 flex justify-around items-center px-4 py-4"
+              style="background: rgba(10,10,10,0.95); border-top: 1px solid rgba(255,255,255,0.05);"
+              aria-hidden="true"
+            >
+              {['⊞', '◎', '⚙'].map((icon) => (
+                <span class="text-muted" style="font-size: 1.1rem;">{icon}</span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Reflexo sutil no topo do frame -->
+          <div
+            class="absolute top-0 left-0 right-0"
+            style="height: 40%; background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%); border-radius: 3rem 3rem 0 0; pointer-events: none;"
+            aria-hidden="true"
+          ></div>
+        </div>
+      </div>
+
+      <!-- ── FEATURE CARDS (GLASSMORPHISM) ──────────────── -->
+      {features.map((feature) => (
+        <div
+          id={feature.id}
+          class={`absolute glass-card p-5 md:p-6 ${feature.position}`}
+          style={`
+            max-width: 240px;
+            opacity: 0;
+            transform: translate(${feature.animFrom.x}px, ${feature.animFrom.y}px);
+          `}
+          aria-label={feature.label}
+        >
+          <!-- Ícone SVG -->
+          <div
+            class="mb-3 flex items-center justify-center rounded-xl"
+            style="width: 40px; height: 40px; background: rgba(201,169,110,0.1); border: 1px solid rgba(201,169,110,0.2);"
+          >
+            <svg
+              width="20" height="20"
+              viewBox="0 0 24 24"
+              fill="rgba(201,169,110,0.9)"
+              aria-hidden="true"
+            >
+              <path d={feature.icon} />
+            </svg>
+          </div>
+
+          <!-- Texto do card -->
+          <p class="font-sans font-medium text-surface text-sm mb-1 tracking-wide">
+            {feature.label}
+          </p>
+          <p class="font-sans font-extralight text-muted" style="font-size: 0.72rem; line-height: 1.5; letter-spacing: 0.02em;">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+
+    </div><!-- /ARENA -->
+
+    <!-- Badge MQ Access -->
+    <div id="app-badge" class="mt-16 flex flex-col items-center gap-4 opacity-0">
+      <a
+        href="#app"
+        class="btn-ghost"
+        aria-label="Acessar o aplicativo web de Mario Quirino"
+      >
+        <span>Acessar o Aplicativo  →</span>
+      </a>
+
+      <div class="mq-access-badge">
+        <!-- Shield icon -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(201,169,110,0.8)" aria-hidden="true">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+        </svg>
+        <span>Tecnologia Proprietária</span>
+        <strong>MQ Access™</strong>
+      </div>
+    </div>
+
+  </div><!-- /Container -->
+
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    gsap.set(
+      ['#app-eyebrow', '#app-title', '#app-subtitle', '#app-mockup', '#feature-1', '#feature-2', '#feature-3', '#app-badge'],
+      { opacity: 1, x: 0, y: 0 }
+    );
+  } else {
+
+    // --- Eyebrow + Título + Subtítulo ---
+    const introTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#app-section',
+        start: 'top 75%',
+        once: true,
+      },
+    });
+
+    introTl
+      .to('#app-eyebrow', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' })
+      .to('#app-title',   { opacity: 1, y: 0, duration: 1.2, ease: 'power4.out' }, '-=0.6')
+      .to('#app-subtitle',{ opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, '-=0.8');
+
+    // --- Parallax do Mockup + Rotação 3D atrelada ao scroll ---
+    gsap.to('#app-mockup', {
+      y: -60,                // sobe mais devagar que a página (parallax)
+      rotateY: 8,            // leve rotação no eixo Y — perspectiva 3D
+      rotateX: -4,           // inclinação sutil
+      scrollTrigger: {
+        trigger: '#app-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5,          // lag de 1.5s — máxima suavidade
+      },
+    });
+
+    // --- Entrada do Mockup (fade + scale) ---
+    gsap.from('#app-mockup > div', {
+      opacity: 0,
+      scale: 0.92,
+      duration: 1.4,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#app-section',
+        start: 'top 65%',
+        once: true,
+      },
+    });
+
+    // --- Feature Cards — stagger com entrada da sua direção de origem ---
+    const cards = ['#feature-1', '#feature-2', '#feature-3'];
+
+    cards.forEach((cardId, index) => {
+      const el = document.querySelector(cardId) as HTMLElement;
+      if (!el) return;
+
+      // Lê os valores x/y que foram definidos inline no transform
+      // e anima de volta a x:0, y:0
+      gsap.to(cardId, {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        duration: 1.1,
+        ease: 'power3.out',
+        delay: index * 0.18,   // escalonamento manual entre os 3 cards
+        scrollTrigger: {
+          trigger: '#app-section',
+          start: 'top 55%',
+          once: true,
+        },
+      });
+    });
+
+    // --- Float contínuo do mockup (CSS aditivo via GSAP) ---
+    gsap.to('#app-mockup > div', {
+      y: -10,
+      duration: 3,
+      ease: 'power1.inOut',
+      yoyo: true,
+      repeat: -1,
+    });
+
+    // --- Badge de download ---
+    gsap.to('#app-badge', {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#app-badge',
+        start: 'top 90%',
+        once: true,
+      },
+    });
+
+  }
+</script>

@@ -1,0 +1,53 @@
+---
+/**
+ * index.astro — Página Principal
+ * Mario Quirino Landing Page
+ *
+ * Orquestra os componentes na ordem cinematográfica
+ * definida no CONTEXTO_DO_PROJETO.md
+ */
+
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import AuthorityNumbers from '../components/AuthorityNumbers.astro';
+import AppMonolith from '../components/AppMonolith.astro';
+import AboutMario from '../components/AboutMario.astro';
+import LegacyBook from '../components/LegacyBook.astro';
+import ExclusiveEvent from '../components/ExclusiveEvent.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Mario Quirino — Especialista Nacional em PNL & Diretor Executivo BNI"
+  description="Mario Quirino é especialista nacional em PNL e Diretor Executivo BNI. Transforme sua liderança, comunicação e resultados com metodologias comprovadas de alto impacto."
+>
+  <!--
+    ORDEM CINEMATOGRÁFICA DOS COMPONENTES
+    ✅ 1. Hero              — Abertura tela cheia
+    ✅ 2. AuthorityNumbers  — Números de impacto
+    ✅ 3. AppMonolith       — The Digital Monolith
+    ✅ 4. AboutMario        — A Mente (Quem Somos)
+    ✅ 5. LegacyBook        — The Legacy (O Livro)
+    ✅ 6. ExclusiveEvent    — The Exclusive Access (VIP Pass)
+    ⏳ 7. PNLSection        — Autoridade em PNL
+    ⏳ 8. SpeakerVideo      — Vídeo Full Bleed
+    ⏳ 9. Testimonials      — Depoimentos
+  -->
+
+  <div class="overflow-x-hidden">
+    <Hero />
+    <AuthorityNumbers />
+    <AppMonolith />
+    <AboutMario />
+    <LegacyBook />
+    <ExclusiveEvent
+      eventTitle="Próximo Evento Nacional"
+      eventDate="15 de Agosto, 2025"
+      eventLocation="São Paulo — SP"
+      eventDescription="Uma tarde de imersão em comunicação de alta performance, liderança estratégica e a neurociência por trás das decisões que definem carreiras."
+      eventCTAUrl="#vip-access"
+      spotsRemaining={12}
+    />
+    <Footer />
+  </div>
+</Layout>

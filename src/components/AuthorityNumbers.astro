@@ -1,0 +1,200 @@
+---
+/**
+ * AuthorityNumbers.astro — The Weight of Results
+ * Mario Quirino Landing Page
+ *
+ * Design: Números gigantescos que falam mais alto que qualquer copy.
+ * Cada cifra é um monumento tipográfico.
+ */
+
+interface StatItem {
+  value: string;
+  label: string;
+  sublabel?: string;
+}
+
+const stats: StatItem[] = [
+  {
+    value: '+R$50M',
+    label: 'Negócios Gerados',
+    sublabel: 'Via rede BNI no Mato Grosso',
+  },
+  {
+    value: '10K+',
+    label: 'Vidas Impactadas',
+    sublabel: 'Em treinamentos e palestras',
+  },
+  {
+    value: 'Nº 1',
+    label: 'Diretor BNI — MT',
+    sublabel: 'Referência nacional em conexão',
+  },
+];
+---
+
+<section
+  id="authority"
+  aria-label="Números de autoridade e impacto"
+  class="relative w-full min-h-[70vh] flex flex-col justify-center overflow-hidden"
+  style="background-color: #000000;"
+>
+
+  <!-- Linha separadora superior — gold quase invisível -->
+  <div
+    class="absolute top-0 left-16 right-16"
+    style="height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,110,0.2) 30%, rgba(201,169,110,0.2) 70%, transparent);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Noise overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Container principal -->
+  <div class="relative z-10 w-full max-w-screen-xl mx-auto px-8 md:px-14 lg:px-20 py-24 md:py-32">
+
+    <!-- Eyebrow -->
+    <div id="authority-eyebrow" class="eyebrow eyebrow--accent mb-16 md:mb-20 opacity-0">
+      Resultados Mensuráveis &nbsp;·&nbsp; Impacto Real
+    </div>
+
+    <!-- Grid de Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0 md:divide-x md:divide-white/5">
+
+      {stats.map((stat, index) => (
+        <div
+          class="authority-stat flex flex-col justify-start px-0 md:px-10 lg:px-14 first:pl-0 last:pr-0 py-10 md:py-0 border-b border-white/5 md:border-b-0 last:border-b-0"
+          data-index={index}
+          style="opacity: 0; transform: translateY(50px);"
+        >
+          <!-- Número principal — o protagonista tipográfico -->
+          <div
+            class="font-serif font-bold text-surface leading-none tracking-tighter"
+            style="font-size: clamp(2.8rem, 4.5vw, 5.5rem);"
+            aria-label={stat.value}
+          >
+            <!-- Parte numérica em branco -->
+            <span class="text-surface">
+              {/* Separa o símbolo final (M, K, +) em gold */}
+              {stat.value.replace(/([+MK№])/g, '§$1').split('§').map((part, i) =>
+                i % 2 === 0
+                  ? <span>{part}</span>
+                  : <span class="text-accent">{part}</span>
+              )}
+            </span>
+          </div>
+
+          <!-- Rótulo principal -->
+          <p
+            class="mt-4 font-sans font-light text-surface text-base md:text-lg tracking-wide"
+          >
+            {stat.label}
+          </p>
+
+          <!-- Sub-rótulo -->
+          {stat.sublabel && (
+            <p class="mt-1 eyebrow text-muted">
+              {stat.sublabel}
+            </p>
+          )}
+
+          <!-- Linha gold de acento abaixo do número -->
+          <div
+            class="mt-6 h-px w-8"
+            style="background: rgba(201,169,110,0.5);"
+            aria-hidden="true"
+          ></div>
+        </div>
+      ))}
+
+    </div>
+
+    <!-- Citação de credibilidade abaixo dos números -->
+    <div
+      id="authority-quote"
+      class="mt-20 md:mt-28 max-w-2xl opacity-0"
+      style="transform: translateY(30px);"
+    >
+      <p
+        class="font-serif italic text-muted"
+        style="font-size: clamp(1.1rem, 2vw, 1.6rem); line-height: 1.5;"
+      >
+        "Liderar não é ocupar uma posição.<br />
+        É <span class="text-surface not-italic">multiplicar resultados</span> onde ninguém acredita que é possível."
+      </p>
+      <div class="flex items-center gap-4 mt-6">
+        <div class="gold-rule"></div>
+        <span class="eyebrow eyebrow--accent">Mario Quirino</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Linha separadora inferior -->
+  <div
+    class="absolute bottom-0 left-16 right-16"
+    style="height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,110,0.15) 30%, rgba(201,169,110,0.15) 70%, transparent);"
+    aria-hidden="true"
+  ></div>
+
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    // Revelar tudo imediatamente sem animação
+    gsap.set(['#authority-eyebrow', '.authority-stat', '#authority-quote'], {
+      opacity: 1,
+      y: 0,
+    });
+  } else {
+    // --- Eyebrow fade in ---
+    gsap.to('#authority-eyebrow', {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#authority',
+        start: 'top 80%',
+        once: true,
+      },
+    });
+
+    // --- Stagger dos números (o efeito principal) ---
+    // Cada stat sobe de y:50→0 e opacity:0→1 com delay escalonado
+    gsap.to('.authority-stat', {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power4.out',
+      stagger: {
+        amount: 0.4,      // Total de 0.4s distribuído entre os 3 elementos
+        from: 'start',    // Esquerda para direita
+      },
+      scrollTrigger: {
+        trigger: '#authority',
+        start: 'top 72%',
+        once: true,
+      },
+    });
+
+    // --- Citação de credibilidade ---
+    gsap.to('#authority-quote', {
+      opacity: 1,
+      y: 0,
+      duration: 1.1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#authority-quote',
+        start: 'top 85%',
+        once: true,
+      },
+    });
+  }
+</script>

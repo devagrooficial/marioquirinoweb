@@ -1,0 +1,316 @@
+---
+/**
+ * AboutMario.astro — A Mente por Trás dos Resultados
+ * Mario Quirino Landing Page
+ *
+ * Design: A ponte emocional e de autoridade.
+ * A imagem se desenrola como um filme. O texto acompanha.
+ * Zero bordas duras. Apenas luz, sombra e tipo.
+ */
+import { Image } from 'astro:assets';
+import sobreImg from '../assets/sobre-mario.jpeg';
+---
+
+<section
+  id="about-section"
+  aria-label="Sobre Mario Quirino"
+  class="relative w-full min-h-screen flex items-center overflow-hidden"
+  style="background-color: #000000;"
+>
+
+  <!-- Noise overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Glow ambiente — apenas atmosfera, sem forma -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(201,169,110,0.03) 0%, transparent 65%);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Container principal — sem max-width restritivo para a imagem sangrar -->
+  <div class="relative z-10 w-full px-0 md:px-0 py-0">
+
+    <div class="grid grid-cols-1 md:grid-cols-[55%_45%] gap-0 md:gap-8 lg:gap-10 items-stretch min-h-screen">
+
+      <!-- ═══════════════════════════════════════════════════
+           COLUNA 1 — A Imagem Escultural
+           A imagem se revela de baixo para cima via clip-path.
+           O contêiner fica estático; a foto "sobe" de dentro.
+           ═══════════════════════════════════════════════════ -->
+      <div
+        id="about-image-container"
+        class="relative overflow-hidden order-2 md:order-1 w-full"
+        style="
+          /* Altura total da tela no desktop — imagem ocupa a coluna inteira */
+          min-height: 90vh;
+          /* A máscara de clip-path começa fechada — GSAP abre */
+          clip-path: inset(100% 0 0 0);
+          will-change: clip-path;
+        "
+        aria-label="Fotografia de Mario Quirino"
+      >
+
+        <!-- Wrapper para parallax GSAP -->
+        <div
+          id="about-image"
+          class="w-full h-full absolute inset-0"
+          style="transform: scale(1.08); will-change: transform;"
+        >
+          <Image
+            src={sobreImg}
+            alt="Sobre Mario Quirino — Retrato oficial"
+            class="w-full h-full object-cover object-center"
+            style="filter: grayscale(100%) brightness(0.7) contrast(1.25);"
+            widths={[500, 800, 1100]}
+            sizes="(max-width: 768px) 100vw, 55vw"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <!-- Gradiente lateral direito — funde suavemente com a coluna de texto -->
+        <div
+          class="absolute inset-y-0 right-0 pointer-events-none"
+          style="width: 35%; background: linear-gradient(to right, transparent, #000000 100%);"
+          aria-hidden="true"
+        ></div>
+
+        <!-- Gradiente de base — funde a imagem com o preto sem corte -->
+        <div
+          class="absolute inset-x-0 bottom-0 pointer-events-none"
+          style="height: 35%; background: linear-gradient(to top, #000000 0%, transparent 100%);"
+          aria-hidden="true"
+        ></div>
+
+        <!-- Gradiente superior — integra com o header -->
+        <div
+          class="absolute inset-x-0 top-0 pointer-events-none"
+          style="height: 20%; background: linear-gradient(to bottom, #000000 0%, transparent 100%);"
+          aria-hidden="true"
+        ></div>
+
+        <!-- Linha gold — acento lateral esquerdo -->
+        <div
+          id="about-image-accent"
+          class="absolute left-0 top-12 bottom-12"
+          style="width: 2px; background: linear-gradient(to bottom, transparent, #C9A96E 30%, #C9A96E 70%, transparent); opacity: 0; transform: scaleY(0); transform-origin: top;"
+          aria-hidden="true"
+        ></div>
+
+      </div><!-- /coluna imagem -->
+
+      <!-- ═══════════════════════════════════════════════════
+           COLUNA 2 — A Narrativa
+           ═══════════════════════════════════════════════════ -->
+      <div
+        id="about-text"
+        class="flex flex-col justify-center order-1 md:order-2 px-8 md:px-10 lg:px-14 py-24 md:py-0"
+        style="opacity: 0; transform: translateY(40px);"
+      >
+
+        <!-- Eyebrow — identidade comprimida -->
+        <p
+          class="font-sans font-normal text-muted uppercase mb-8 tracking-[0.3em] text-xs"
+          aria-label="Título de Mario Quirino"
+        >
+          O Arquiteto das Conexões
+        </p>
+
+        <!-- Título principal — massivo e deliberado -->
+        <div class="overflow-hidden mb-8">
+          <h2
+            id="about-headline"
+            class="font-serif font-bold text-surface leading-none tracking-tighter"
+            style="font-size: clamp(2rem, 4.5vw, 5rem); transform: translateY(60px);"
+          >
+            Muito além do palco,<br />
+            a <span class="text-accent italic">ciência</span><br />
+            do resultado.
+          </h2>
+        </div>
+
+        <!-- Linha gold separadora -->
+        <div class="gold-rule mb-10"></div>
+
+        <!-- Parágrafos — corpo em fonte ultra-fina -->
+        <div
+          id="about-paragraphs"
+          class="space-y-5"
+          style="opacity: 0; transform: translateY(20px);"
+        >
+          <p
+            class="font-sans font-light text-muted leading-relaxed"
+            style="font-size: clamp(0.9rem, 1.4vw, 1.05rem); max-width: 44ch; color: rgba(255,255,255,0.6);"
+          >
+            Como Diretor Executivo do BNI Mato Grosso, Mario Quirino não apenas lidera uma
+            rede de negócios — ele constrói o ecossistema onde líderes se reconhecem e
+            multiplicam resultados que nunca imaginariam sozinhos.
+          </p>
+
+          <p
+            class="font-sans font-light text-muted leading-relaxed"
+            style="font-size: clamp(0.9rem, 1.4vw, 1.05rem); max-width: 44ch; color: rgba(255,255,255,0.6);"
+          >
+            Sua maestria em Programação Neurolinguística não é ferramenta de palco.
+            É o sistema operacional por trás de cada conversa, cada negociação, cada
+            tomada de decisão que transforma profissionais em referência de mercado.
+          </p>
+
+          <p
+            class="font-sans font-light leading-relaxed"
+            style="font-size: clamp(0.9rem, 1.4vw, 1.05rem); max-width: 44ch; color: rgba(255,255,255,0.45);"
+          >
+            A fusão entre o método BNI e a ciência da mente cria algo raro:
+            um profissional que não ensina a ter sucesso —
+            ensina o <em class="font-normal not-italic" style="color: rgba(255,255,255,0.75);">caminho neurológico</em> até ele.
+          </p>
+        </div>
+
+        <!-- Stats compactos inline — autoridade numérica em contexto -->
+        <div
+          id="about-mini-stats"
+          class="flex flex-wrap gap-x-10 gap-y-4 mt-12"
+          style="opacity: 0; transform: translateY(15px);"
+        >
+          <div>
+            <p class="font-serif font-bold text-surface" style="font-size: 2rem; line-height: 1; letter-spacing: -0.03em;">
+              20<span class="text-accent" style="font-size: 1.2rem;">+</span>
+            </p>
+            <p class="eyebrow text-muted mt-1">Anos de prática</p>
+          </div>
+          <div>
+            <p class="font-serif font-bold text-surface" style="font-size: 2rem; line-height: 1; letter-spacing: -0.03em;">
+              500<span class="text-accent" style="font-size: 1.2rem;">+</span>
+            </p>
+            <p class="eyebrow text-muted mt-1">Palestras realizadas</p>
+          </div>
+          <div>
+            <p class="font-serif font-bold text-surface" style="font-size: 2rem; line-height: 1; letter-spacing: -0.03em;">
+              Nº<span class="text-accent">1</span>
+            </p>
+            <p class="eyebrow text-muted mt-1">BNI — Mato Grosso</p>
+          </div>
+        </div>
+
+      </div><!-- /coluna texto -->
+    </div><!-- /grid -->
+  </div><!-- /container -->
+
+  <!-- Gradiente de transição inferior -->
+  <div
+    class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+    style="background: linear-gradient(to bottom, transparent, #000000);"
+    aria-hidden="true"
+  ></div>
+
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const pref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (pref) {
+    // Revelar tudo imediatamente
+    gsap.set('#about-image-container', { clipPath: 'inset(0% 0 0 0)' });
+    gsap.set('#about-image-accent', { opacity: 1, scaleY: 1 });
+    gsap.set(['#about-text', '#about-headline', '#about-paragraphs', '#about-mini-stats'], {
+      opacity: 1, y: 0,
+    });
+  } else {
+
+    // ─────────────────────────────────────────────────────────
+    // 1. EFEITO DE MÁSCARA DA IMAGEM — clip-path reveal
+    //    Começa em inset(100% 0 0 0) — completamente oculta pelo baixo
+    //    Vai para inset(0% 0 0 0) — completamente visível
+    //    Sensação: a imagem "sobe" de dentro do container
+    // ─────────────────────────────────────────────────────────
+    gsap.to('#about-image-container', {
+      clipPath: 'inset(0% 0 0 0)',
+      duration: 1.6,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '#about-section',
+        start: 'top 68%',
+        once: true,
+      },
+    });
+
+    // Acento lateral — linha gold aparece junto com a imagem
+    gsap.to('#about-image-accent', {
+      opacity: 1,
+      scaleY: 1,
+      duration: 1.2,
+      ease: 'power3.out',
+      delay: 0.3,
+      scrollTrigger: {
+        trigger: '#about-section',
+        start: 'top 68%',
+        once: true,
+      },
+    });
+
+    // ─────────────────────────────────────────────────────────
+    // 2. PARALLAX DA IMAGEM — durante o scroll
+    //    Imagem sobe levemente mais devagar que a página
+    // ─────────────────────────────────────────────────────────
+    gsap.to('#about-image', {
+      y: -40,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#about-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5,
+      },
+    });
+
+    // ─────────────────────────────────────────────────────────
+    // 3. TEXT REVEAL — coluna 2
+    //    Ligeiramente atrasado em relação à imagem
+    //    Headline sobe da sua própria máscara (overflow-hidden no pai)
+    // ─────────────────────────────────────────────────────────
+    const textTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#about-section',
+        start: 'top 65%',
+        once: true,
+      },
+    });
+
+    // Container da coluna — fade e y global
+    textTl.to('#about-text', {
+      opacity: 1,
+      y: 0,
+      duration: 1.1,
+      ease: 'power3.out',
+    }, 0.25);
+
+    // Headline dentro da máscara — sobe de 60px → 0
+    textTl.to('#about-headline', {
+      y: 0,
+      duration: 1.4,
+      ease: 'power4.out',
+    }, 0.35);
+
+    // Parágrafos — com leve atraso adicional
+    textTl.to('#about-paragraphs', {
+      opacity: 1,
+      y: 0,
+      duration: 1.1,
+      ease: 'power3.out',
+    }, 0.65);
+
+    // Mini stats — os últimos a aparecer
+    textTl.to('#about-mini-stats', {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'power2.out',
+    }, 0.9);
+  }
+</script>

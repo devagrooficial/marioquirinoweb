@@ -1,0 +1,280 @@
+---
+/**
+ * ExclusiveEvent.astro — The Exclusive Access
+ * Design: VIP Boarding Pass. O visitante não compra um ingresso.
+ * Ele é admitido.
+ */
+
+interface Props {
+  eventTitle?: string;
+  eventDate?: string;
+  eventLocation?: string;
+  eventDescription?: string;
+  eventCTAUrl?: string;
+  spotsRemaining?: number;
+}
+
+const {
+  eventTitle       = 'Próximo Evento Nacional',
+  eventDate        = '15 de Agosto, 2025',
+  eventLocation    = 'São Paulo — SP',
+  eventDescription = 'Uma tarde de imersão em comunicação de alta performance, liderança estratégica e a neurociência por trás das decisões que definem carreiras.',
+  eventCTAUrl      = '#vip-access',
+  spotsRemaining   = 12,
+} = Astro.props;
+---
+
+<section
+  id="event-section"
+  aria-label="Evento exclusivo Mario Quirino"
+  class="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-24 md:py-32"
+  style="background-color: #000000;"
+>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Glow ambiente ao redor do pass -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,169,110,0.04) 0%, transparent 70%);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ── VIP BOARDING PASS ──────────────────────────────────── -->
+  <div
+    id="vip-pass"
+    class="relative w-full max-w-3xl xl:max-w-4xl mx-4 md:mx-8"
+    style="opacity: 0; transform: scale(0.9);"
+    role="article"
+    aria-label="Passe VIP para evento de Mario Quirino"
+  >
+
+    <!-- Brilho metálico na borda — efeito de luxo -->
+    <div
+      class="absolute -inset-px rounded-3xl pointer-events-none"
+      style="background: linear-gradient(135deg, rgba(201,169,110,0.3) 0%, transparent 40%, transparent 60%, rgba(201,169,110,0.15) 100%); border-radius: inherit;"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Corpo do Pass -->
+    <div
+      class="relative rounded-3xl overflow-hidden"
+      style="background: #0A0A0A; border: 1px solid rgba(201,169,110,0.12);"
+    >
+
+      <!-- Linha horizontal de "corte" do boarding pass — detalhe documental -->
+      <div class="relative">
+
+        <!-- Seção superior do pass — Header -->
+        <div class="px-8 md:px-12 lg:px-16 pt-12 pb-10">
+          <!-- Header row -->
+          <div class="flex items-start justify-between mb-10">
+            <div>
+              <p class="eyebrow eyebrow--accent mb-2">Acesso Exclusivo &nbsp;·&nbsp; Edição Limitada</p>
+              <p class="font-sans font-extralight text-muted text-sm tracking-widest uppercase">Convite Pessoal e Intransferível</p>
+            </div>
+            <!-- Logo/Monograma no canto -->
+            <div
+              class="flex-shrink-0"
+              style="width: 56px; height: 56px; border: 1px solid rgba(201,169,110,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center;"
+              aria-hidden="true"
+            >
+              <span class="font-serif text-accent font-bold" style="font-size: 1.2rem; letter-spacing: -0.05em;">MQ</span>
+            </div>
+          </div>
+
+          <!-- Título do evento — gigante -->
+          <h2
+            class="font-serif font-bold text-surface leading-none tracking-tighter mb-8"
+            style="font-size: clamp(2.8rem, 6vw, 6rem);"
+          >
+            {eventTitle}
+          </h2>
+
+          <!-- Data e Local — alto contraste -->
+          <div class="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start sm:items-center">
+            <div>
+              <p class="eyebrow text-muted mb-1">Data</p>
+              <p class="font-sans font-light text-surface" style="font-size: clamp(1rem, 1.8vw, 1.3rem); letter-spacing: 0.02em;">
+                {eventDate}
+              </p>
+            </div>
+            <!-- Separador vertical em gold -->
+            <div class="hidden sm:block" style="width: 1px; height: 40px; background: rgba(201,169,110,0.3);" aria-hidden="true"></div>
+            <div>
+              <p class="eyebrow text-muted mb-1">Local</p>
+              <p class="font-sans font-light text-surface" style="font-size: clamp(1rem, 1.8vw, 1.3rem); letter-spacing: 0.02em;">
+                {eventLocation}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linha perfurada de separação — efeito boarding pass -->
+        <div class="relative flex items-center mx-8 md:mx-12 lg:mx-16 my-0" aria-hidden="true">
+          <!-- Semicírculo esquerdo recortado -->
+          <div
+            class="absolute -left-12 md:-left-16 w-8 h-8 rounded-full"
+            style="background: #000000; border: 1px solid rgba(201,169,110,0.12);"
+          ></div>
+          <!-- Linha tracejada -->
+          <div class="flex-1" style="border-top: 1px dashed rgba(201,169,110,0.2);"></div>
+          <!-- Semicírculo direito recortado -->
+          <div
+            class="absolute -right-12 md:-right-16 w-8 h-8 rounded-full"
+            style="background: #000000; border: 1px solid rgba(201,169,110,0.12);"
+          ></div>
+        </div>
+
+        <!-- Seção inferior do pass — CTA -->
+        <div class="px-8 md:px-12 lg:px-16 pt-10 pb-12">
+
+          <!-- Descrição do evento -->
+          <p
+            class="font-sans font-extralight text-muted leading-relaxed mb-10"
+            style="font-size: clamp(0.9rem, 1.4vw, 1.05rem); max-width: 52ch;"
+          >
+            {eventDescription}
+          </p>
+
+          <!-- CTA + Badge de autoridade -->
+          <div class="flex flex-col items-start gap-5">
+
+            <!-- Indicador de escassez -->
+            {spotsRemaining && (
+              <div class="spot-indicator" aria-live="polite">
+                <span>{spotsRemaining} acessos disponíveis</span>
+              </div>
+            )}
+
+            <!-- Botão Principal -->
+            <a
+              href={eventCTAUrl}
+              id="event-cta-btn"
+              class="btn-ghost"
+              aria-label={`Garantir acesso VIP para ${eventTitle}`}
+            >
+              <span>Garantir Meu Acesso VIP &nbsp;→</span>
+            </a>
+
+            <!-- ── SELO DE CHECKOUT EXCLUSIVO ─────────────── -->
+            <!-- Assinatura da marca. Trata como elemento de luxo. -->
+            <div
+              class="mq-checkout-seal"
+              aria-label="Sistema de checkout exclusivo — Tecnologia Mario Quirino"
+            >
+              <!-- Shield SVG -->
+              <svg
+                width="13" height="13"
+                viewBox="0 0 24 24"
+                fill="rgba(201,169,110,0.65)"
+                aria-hidden="true"
+                style="flex-shrink: 0;"
+              >
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+              </svg>
+              <span class="seal-label">Sistema de Checkout Exclusivo</span>
+              <span class="seal-divider" aria-hidden="true">/</span>
+              <strong class="seal-brand">Tecnologia Mario Quirino™</strong>
+            </div>
+
+          </div><!-- /flex CTA -->
+        </div><!-- /seção inferior -->
+
+      </div><!-- /relative -->
+    </div><!-- /corpo do pass -->
+  </div><!-- /vip-pass -->
+
+</section>
+
+<style>
+  /* ── SELO DE CHECKOUT — A Assinatura da Marca ── */
+  .mq-checkout-seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 1rem;
+    border: 1px solid rgba(201, 169, 110, 0.18);
+    border-radius: 100px;
+    background: rgba(201, 169, 110, 0.04);
+    margin-top: 0.25rem;
+  }
+
+  .seal-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201, 169, 110, 0.55);
+  }
+
+  .seal-divider {
+    color: rgba(201, 169, 110, 0.25);
+    font-size: 0.55rem;
+  }
+
+  .seal-brand {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(201, 169, 110, 0.85);
+  }
+
+  /* Hover sutil no selo — respira sem chamar atenção */
+  .mq-checkout-seal:hover .seal-label,
+  .mq-checkout-seal:hover .seal-brand {
+    color: rgba(201, 169, 110, 1);
+    transition: color 0.3s ease;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const pref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (pref) {
+    gsap.set('#vip-pass', { opacity: 1, scale: 1 });
+  } else {
+    // O VIP Pass escala de 0.9 → 1 conforme o usuário chega
+    // Sensação de que o convite está sendo "entregue" a ele
+    gsap.to('#vip-pass', {
+      opacity: 1,
+      scale: 1,
+      duration: 1.4,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '#event-section',
+        start: 'top 70%',
+        once: true,
+      },
+    });
+
+    // Parallax sutil do pass — sobe levemente mais rápido que a página
+    gsap.to('#vip-pass', {
+      y: -20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#event-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 2,
+      },
+    });
+
+    // Glow pulsante na borda do pass após a entrada
+    gsap.to('#vip-pass > div:first-child', {
+      opacity: 0.6,
+      duration: 2.5,
+      ease: 'power2.inOut',
+      yoyo: true,
+      repeat: -1,
+      delay: 1.5,
+    });
+  }
+</script>
